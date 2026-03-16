@@ -1,3 +1,4 @@
+using TouristSpot.API.Enums;
 namespace TouristSpot.API.Models;
 
 public class PontoTuristico: Local
@@ -9,6 +10,6 @@ public class PontoTuristico: Local
 
     public virtual ICollection<Evento> EventosInternos { get; set; } = new List<Evento>();
 
-    public virtual ICollection<Categoria> Categorias { get; set; } = new List<Categoria>(); 
+    public virtual ICollection<TipoCategoria> Categorias { get; set; } = new List<TipoCategoria>();
 
 }

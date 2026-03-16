@@ -1,3 +1,4 @@
+using TouristSpot.API.Enums;
 namespace TouristSpot.API.DTOs;
 public record PontoTuristicoCreateDTO(
     string Nome,
@@ -8,5 +9,5 @@ public record PontoTuristicoCreateDTO(
     string Estado,
     DateTime DataInicio,
     DateTime DataFim,
-    List<int> CategoriaIds
+    List<TipoCategoria> CategoriaIds
 );
