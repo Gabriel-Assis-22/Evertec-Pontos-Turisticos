@@ -1,39 +1,35 @@
 # Evertec-Pontos-Turisticos
 ```mermaid
-classDiagram
-    class Local {
-        <<Abstract>>
-        +int Id
-        +string Nome
-        +string Descricao
-        +string Endereco
-        +DateTime DataInicio
-        +DateTime DataFim
+erDiagram
+    Categorias ||--o{ CategoriaPontoTuristico : "possui"
+    PontoTuristicos ||--o{ CategoriaPontoTuristico : "pertence a"
+    PontoTuristicos ||--o{ Eventos : "sedia"
+
+    Categorias {
+        int Id PK
+        string Nome
     }
 
-    class PontoTuristico {
-        +string Cep
-        +string Cidade
-        +string Estado
-        +List~TipoCategoria~ Categorias
+    PontoTuristicos {
+        int Id PK
+        string Nome
+        string Descricao
+        string Cidade
+        string Estado
+        string Endereco
+        string Cep
+        datetime2 DataInicio
+        datetime2 DataFim
     }
 
-    class Evento {
-        +int PontoTuristicoId
+    CategoriaPontoTuristico {
+        int CategoriasId PK, FK
+        int PontoTuristicosId PK, FK
     }
 
-    class TipoCategoria {
-        <<Enumeration>>
-        Natureza
-        Museu
-        Historico
-        Gastronomia
-    }
-
-    Local <|-- PontoTuristico : Herança
-    Local <|-- Evento : Herança
-    PontoTuristico "1" --> "*" Evento : EventosInternos
-    PontoTuristico ..> TipoCategoria : Usa
+    Eventos {
+        int Id PK
+        int PontoTuristicoId FK
         string Nome
         string Descricao
         string Endereco
