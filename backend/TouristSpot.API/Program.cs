@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TouristSpot.API.Data;
-
+using TouristSpot.API.Services.Interfaces;
+using TouristSpot.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers()
@@ -15,6 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<ITouristSpotService, TouristSpotService>();
+builder.Services.AddScoped<IEventoSpotService, EventoSpotService>(); 
 
 var app = builder.Build();
 
