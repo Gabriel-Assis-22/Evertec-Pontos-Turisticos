@@ -2,7 +2,7 @@ using TouristSpot.API.DTOs;
 
 namespace TouristSpot.API.Services.Interfaces;
 
-public class IEventoSpotService
+public interface IEventoSpotService
 {
     Task<IEnumerable<EventoResponseDTO>> GetAllAsync();
     Task<EventoResponseDTO?> GetByIdAsync(int id); 
