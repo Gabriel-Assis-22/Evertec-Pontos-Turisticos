@@ -11,5 +11,12 @@ public class PontoTuristico: Local
     public virtual ICollection<Evento> EventosInternos { get; set; } = new List<Evento>();
 
     public virtual ICollection<TipoCategoria> Categorias { get; set; } = new List<TipoCategoria>();
+    public override string GetLocalizacaoCompleta() => $"{Endereco}, {Cidade} - {Estado}"; 
+
+    public override bool EstaAbertoOuAtivo(){
+        var agora = DateTime.Now.TimeOfDay;
+        return agora >= DataInicio.TimeOfDay && agora <= DataFim.TimeOfDay; 
+    }
+
 
 }

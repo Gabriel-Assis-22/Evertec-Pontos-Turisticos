@@ -20,4 +20,8 @@ public abstract class Local
 
     public DateTime DataFim { get; set; }
 
+    public abstract string GetLocalizacaoCompleta();  
+
+    public abstract bool EstaAbertoOuAtivo();
+
 }
