@@ -57,7 +57,7 @@ export const PontoForm = ({ initialData, onSave }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
     try {
       const payload = {
         ...formData,
@@ -72,10 +72,20 @@ export const PontoForm = ({ initialData, onSave }) => {
       } else {
         await PontoTuristicoService.create(payload);
         alert("Ponto turístico salvo com sucesso!");
+        
+        setFormData({
+          nome: "", cep: "", endereco: "", cidade: "", estado: "",
+          descricao: "", dataInicio: "", dataFim: "", categoriaIds: []
+        });
       }
 
       onSave();
-      window.bootstrap.Modal.getInstance(document.getElementById('modalPonto'))?.hide();
+      
+
+      const modalElement = document.getElementById('modalPonto');
+      const modalInstance = window.bootstrap.Modal.getInstance(modalElement);
+      modalInstance?.hide();
+
     } catch (error) {
       console.error("Erro ao salvar:", error);
       alert("Erro ao salvar ponto turístico.");

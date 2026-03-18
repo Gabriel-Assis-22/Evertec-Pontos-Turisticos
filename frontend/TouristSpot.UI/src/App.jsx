@@ -122,9 +122,11 @@ function App() {
         </div>
       </main>
 
-      {/* MODAL PONTO (Criar/Editar) */}
       <Modal id="modalPonto" title={pontoEmEdicao?.id ? "Editar Ponto Turístico" : "Cadastrar Ponto Turístico"}>
+
+        {/* MODAL PONTO (Criar/Editar) */}
         <PontoForm
+          key={pontoEmEdicao?.id || 'novo-ponto'} 
           initialData={pontoEmEdicao}
           onSave={() => {
             carregarPontos();
@@ -133,9 +135,10 @@ function App() {
         />
       </Modal>
 
-      {/* MODAL EVENTO (Criar/Editar) */}
-      <Modal id="modalEvento" title={eventoEmEdicao?.id ? "Editar Evento" : `Novo Evento em ${pontoAtivo?.nome}`}>
+       {/* MODAL EVENTO (Criar/Editar)  */}
+      <Modal id="modalEvento" title={eventoEmEdicao?.id ? "Editar Evento" : `Novo Evento`}>
         <EventoForm
+          key={eventoEmEdicao?.id || 'novo-evento'}
           pontoId={pontoAtivo?.id}
           initialData={eventoEmEdicao}
           onSave={() => {

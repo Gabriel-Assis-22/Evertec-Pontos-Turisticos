@@ -6,6 +6,7 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
   const [formData, setFormData] = useState({
     pontoTuristicoId: pontoId || '',
     nome: '',
+    descricao: '',
     endereco: '',
     dataInicio: '',
     horaInicio: '',
@@ -32,16 +33,17 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
   }, [initialData, pontoId]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
     try {
-      
       const payload = {
-        ...formData,
-        pontoTuristicoId: initialData?.pontoTuristicoId || pontoId,
+        nome: formData.nome,
+        descricao: formData.descricao || "Sem descrição", 
+        endereco: formData.endereco,
         dataInicio: `${formData.dataInicio}T${formData.horaInicio}:00`,
         dataFim: `${formData.dataFim}T${formData.horaFim}:00`,
+        pontoTuristicoId: parseInt(initialData?.pontoTuristicoId || pontoId)
       };
 
       if (initialData?.id) {
@@ -53,12 +55,10 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
       }
 
       onSave();
-
-      
       window.bootstrap.Modal.getInstance(document.getElementById('modalEvento'))?.hide();
     } catch (error) {
-      console.error("Erro ao salvar evento:", error);
-      alert("Erro ao salvar o evento. Verifique os dados.");
+      console.error("Erro ao salvar evento:", error.response?.data || error);
+      alert("Erro ao salvar o evento. Verifique se todos os campos estão preenchidos.");
     } finally {
       setLoading(false);
     }
@@ -87,6 +87,18 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
           required
           value={formData.endereco}
           onChange={e => setFormData({ ...formData, endereco: e.target.value })}
+        />
+      </div>
+
+      <div className="col-12">
+        <label className="form-label small fw-bold">Descrição do Evento *</label>
+        <textarea
+          className="form-control form-control-custom"
+          placeholder="Ex: Show de música ao vivo, feira gastronômica..."
+          rows="3"
+          required
+          value={formData.descricao}
+          onChange={e => setFormData({ ...formData, descricao: e.target.value })}
         />
       </div>
 

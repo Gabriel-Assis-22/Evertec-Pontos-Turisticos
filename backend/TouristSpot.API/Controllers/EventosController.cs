@@ -6,6 +6,7 @@ namespace TouristSpot.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+
 public class EventosController : ControllerBase
 {
     private readonly IEventoSpotService _service;

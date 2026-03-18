@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Clock, ChevronDown, Calendar, Trash2, Plus, Edit2 } from 'lucide-react';
+import { MapPin, Clock, ChevronDown, Calendar, Trash2, Plus, Edit2, Info } from 'lucide-react';
 
 const CATEGORIAS_ENUM = {
   1: "Natureza",
@@ -37,7 +37,6 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
           </div>
         </div>
 
-   
         <div className="d-flex flex-wrap gap-2 mb-3">
           {ponto.categorias?.map((cat, index) => {
             const nomeCategoria = typeof cat === 'number' ? CATEGORIAS_ENUM[cat] : (cat.nome || cat);
@@ -94,8 +93,17 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
           <div className="eventos-container mt-4">
             {ponto.eventos?.map(evento => (
               <div key={evento.id} className="evento-item-card d-flex justify-content-between align-items-center">
-                <div className="evento-content">
+                <div className="evento-content w-100">
                   <div className="evento-title">{evento.nome}</div>
+                  
+                  {/* NOVA LINHA: Descrição do Evento */}
+                  {evento.descricao && (
+                    <div className="evento-description mb-2 small text-muted">
+                      <Info size={12} className="me-1 inline-block" />
+                      {evento.descricao}
+                    </div>
+                  )}
+
                   <div className="evento-info">
                     <Calendar size={14} /> 
                     {new Date(evento.dataInicio).toLocaleDateString()} - <Clock size={14} /> {new Date(evento.dataInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -109,7 +117,7 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
                   </div>
                 </div>
 
-                <div className="d-flex gap-2">
+                <div className="d-flex gap-2 ms-3">
                   <button
                     className="btn-icon-edit-small"
                     data-bs-toggle="modal"
