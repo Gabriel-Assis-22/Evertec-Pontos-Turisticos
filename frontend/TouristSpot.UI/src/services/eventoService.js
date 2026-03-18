@@ -2,27 +2,32 @@ import api from "./api";
 
 const EventoService = {
     getAll: async () => {
-        const response = await api.getAll('/Eventos');
+        // Corrigido de .getAll para .get e adicionado /api
+        const response = await api.get('/api/Eventos'); 
         return response.data;
     },
 
     getById: async (id) => {
-        const response = await api.getById(`/Eventos/${id}`);
+        // Corrigido de .getById para .get e adicionado /api
+        const response = await api.get(`/api/Eventos/${id}`);
         return response.data;
     },
 
     create: async (eventoData) => {
-        const response = await api.post('/Eventos', eventoData);
-        return response;
+        // Adicionado /api
+        const response = await api.post('/api/Eventos', eventoData);
+        return response.data; // Retorne .data para manter o padrão
     },
 
     update: async (id, eventoData) => {
-        const response = await api.put(`/Eventos/${id}`, eventoData);
+        // Adicionado /api
+        const response = await api.put(`/api/Eventos/${id}`, eventoData);
         return response.data;
     },
 
     delete: async (id) => {
-        const response = await api.delete(`/Eventos/${id}`);
+        // Adicionado /api
+        const response = await api.delete(`/api/Eventos/${id}`);
         return response.data;
     }
 }
