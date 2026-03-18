@@ -1,23 +1,18 @@
-/* Botão Principal (Azul preenchido) */
 .btn-primary-custom {
     background-color: #1a69ff;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     padding: 10px 20px;
-    color: white;
 }
 
-/* Card Principal do Ponto Turístico */
 .ponto-card {
     border: 1px solid #e2e8f0;
     border-radius: 16px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s;
-    background-color: white;
 }
 
-/* Badges das Categorias (Enums) */
 .badge-categoria {
     background-color: #eff6ff;
     color: #2563eb;
@@ -28,7 +23,6 @@
     font-weight: 500;
 }
 
-/* Estilo dos Inputs dos Formulários */
 .form-control-custom {
     background-color: #f8fafc;
     border: 1px solid #e2e8f0;
@@ -36,14 +30,20 @@
     padding: 12px;
 }
 
-/* Container da lista de eventos (Linha lateral azul) */
+.text-blue-link {
+    color: #1a69ff;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
 .eventos-container {
     border-left: 2px solid #eef2ff;
     margin-left: 10px;
     padding-left: 20px;
 }
 
-/* Item de evento individual */
 .evento-item-card {
     background-color: #f8fafc;
     border-radius: 12px;
@@ -71,7 +71,20 @@
     gap: 8px;
 }
 
-/* Botão de Confirmação nos Modais (Estilo Outline) */
+.btn-outline-custom {
+    color: #1a69ff;
+    border: 1.5px solid #1a69ff;
+    border-radius: 8px;
+    background: transparent;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-outline-custom:hover {
+    background-color: #1a69ff;
+    color: white;
+}
+
 .btn-confirmar-evento {
     color: #1a69ff;
     border: 2px solid #1a69ff;
@@ -87,31 +100,77 @@
     color: white;
 }
 
-/* Botões de Ícones (Editar/Excluir Ponto) */
+.modal-body label {
+    color: #1e293b;
+    margin-bottom: 6px;
+}
+
 .btn-icon-delete {
     background: transparent;
     border: none;
     color: #ff4d4d;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon-delete:hover {
+    background-color: #fff1f1;
+    transform: scale(1.1);
 }
 
 .btn-icon-edit {
     background: transparent;
     border: none;
     color: #2563eb;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Botões de Ícones Pequenos (Editar/Excluir Evento) */
-.btn-icon-delete-small, .btn-icon-edit-small {
+.btn-icon-edit:hover {
+    background-color: #eff6ff;
+    transform: scale(1.1);
+}
+
+.btn-icon-delete-small {
     background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #ffebeb;
+    color: #ff4d4d;
     padding: 6px;
     border-radius: 6px;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
-/* Botão de Adicionar Evento (Texto + Plus) */
+.btn-icon-delete-small:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.btn-icon-edit-small {
+    background: #fff;
+    border: 1px solid #dbeafe;
+    color: #2563eb;
+    padding: 6px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-icon-edit-small:hover {
+    background-color: #2563eb;
+    color: white;
+}
+
 .btn-add-action {
     background: transparent;
     border: none;
@@ -121,9 +180,15 @@
     align-items: center;
     gap: 4px;
     cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
 }
 
-/* Botão de Abrir/Fechar Lista de Eventos */
+.btn-add-action:hover {
+    background: #f0f7ff;
+}
+
 .btn-toggle-eventos {
     background: transparent;
     border: none;
