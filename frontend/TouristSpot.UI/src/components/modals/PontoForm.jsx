@@ -4,19 +4,7 @@ import PontoTuristicoService from "../../services/pontoTuristicoService";
 
 export const PontoForm = ({ initialData, onSave }) => {
   const { buscarEndereco, loadingCep } = useCep();
-  const [formData, setFormData] = useState({
-    nome: "",
-    cep: "",
-    endereco: "",
-    cidade: "",
-    estado: "",
-    descricao: "",
-    dataInicio: "", // Horário Abertura
-    dataFim: "",    // Horário Fechamento
-    categoriaIds: []
-  });
-
-  // Categorias baseadas no seed do banco de dados (AppDbContext.cs)
+  
   const categoriasDisponiveis = [
     { id: 1, nome: "Natureza" },
     { id: 2, nome: "Museu" },
@@ -24,19 +12,28 @@ export const PontoForm = ({ initialData, onSave }) => {
     { id: 4, nome: "Gastronomia" }
   ];
 
-  // Preenche o formulário se estiver em modo de edição
+  const [formData, setFormData] = useState({
+    nome: "",
+    cep: "",
+    endereco: "",
+    cidade: "",
+    estado: "",
+    descricao: "",
+    dataInicio: "", 
+    dataFim: "",    
+    categoriaIds: []
+  });
+
   useEffect(() => {
     if (initialData) {
       setFormData({
         ...initialData,
-        // Extrai apenas a hora (HH:mm) das datas que vêm da API
         dataInicio: initialData.dataInicio ? initialData.dataInicio.split('T')[1].substring(0, 5) : "",
         dataFim: initialData.dataFim ? initialData.dataFim.split('T')[1].substring(0, 5) : "",
-        // Encontra o ID correspondente ao nome da categoria (já que a API retorna apenas os nomes)
         categoriaIds: initialData.categorias
           ? initialData.categorias
-            .map(nomeCategoria => categoriasDisponiveis.find(c => c.nome === nomeCategoria)?.id)
-            .filter(id => id != null) // Filtra caso algo não seja encontrado
+            .map(cat => typeof cat === 'number' ? cat : categoriasDisponiveis.find(c => c.nome === cat)?.id)
+            .filter(id => id != null)
           : []
       });
     } else {
@@ -62,11 +59,9 @@ export const PontoForm = ({ initialData, onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Trata a hora ("HH:mm") para o padrão DateTime ISO 8601 ("YYYY-MM-DDTHH:mm:ss") que o .NET espera
       const payload = {
         ...formData,
         dataInicio: `2024-01-01T${formData.dataInicio}:00`,
-        // Garante que categoriaIds seja um array de números (removendo nulls)
         categoriaIds: formData.categoriaIds.filter(id => id !== null),
         dataFim: `2024-01-01T${formData.dataFim}:00`
       };
@@ -79,9 +74,7 @@ export const PontoForm = ({ initialData, onSave }) => {
         alert("Ponto turístico salvo com sucesso!");
       }
 
-      onSave(); // Fecha o modal e recarrega a lista no App.jsx
-
-      // Fecha o modal programaticamente
+      onSave();
       window.bootstrap.Modal.getInstance(document.getElementById('modalPonto'))?.hide();
     } catch (error) {
       console.error("Erro ao salvar:", error);
@@ -91,7 +84,6 @@ export const PontoForm = ({ initialData, onSave }) => {
 
   return (
     <form onSubmit={handleSubmit} className="row g-3">
-      {/* Nome e Estado */}
       <div className="col-md-6">
         <label className="form-label small fw-bold">Nome *</label>
         <input
@@ -112,7 +104,6 @@ export const PontoForm = ({ initialData, onSave }) => {
         />
       </div>
 
-      {/* CEP e Cidade */}
       <div className="col-md-6">
         <label className="form-label small fw-bold">CEP *</label>
         <input
@@ -134,7 +125,6 @@ export const PontoForm = ({ initialData, onSave }) => {
         />
       </div>
 
-      {/* Endereço e Descrição */}
       <div className="col-md-6">
         <label className="form-label small fw-bold">Endereço *</label>
         <input
@@ -157,7 +147,6 @@ export const PontoForm = ({ initialData, onSave }) => {
         ></textarea>
       </div>
 
-      {/* Horários */}
       <div className="col-md-6">
         <label className="form-label small fw-bold">Horário de Abertura *</label>
         <input
@@ -179,7 +168,6 @@ export const PontoForm = ({ initialData, onSave }) => {
         />
       </div>
 
-      {/* Seleção de Categorias */}
       <div className="col-12 mt-2">
         <label className="form-label small fw-bold mb-2">Categorias</label>
         <div className="d-flex flex-wrap gap-4">

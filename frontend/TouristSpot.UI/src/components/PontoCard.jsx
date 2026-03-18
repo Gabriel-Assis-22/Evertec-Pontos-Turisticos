@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { MapPin, Clock, ChevronDown, Calendar, Trash2, Plus, Edit2 } from 'lucide-react';
 
+const CATEGORIAS_ENUM = {
+  1: "Natureza",
+  2: "Museu",
+  3: "Histórico",
+  4: "Gastronomia"
+};
+
 export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, onEditPonto, onEditEvento }) => {
   const [showEventos, setShowEventos] = useState(false);
 
   return (
     <div className="card ponto-card mb-4 p-4">
       <div className="card-body p-0">
-        {/* Header com Nome e Botões de Ação do Ponto */}
+        
         <div className="d-flex justify-content-between align-items-start mb-3">
           <h3 className="fw-bold m-0">{ponto.nome}</h3>
           <div className="d-flex gap-2">
@@ -30,10 +37,16 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
           </div>
         </div>
 
+   
         <div className="d-flex flex-wrap gap-2 mb-3">
-          {ponto.categorias?.map((cat, index) => (
-            <span key={index} className="badge-categoria">{cat.nome || cat}</span>
-          ))}
+          {ponto.categorias?.map((cat, index) => {
+            const nomeCategoria = typeof cat === 'number' ? CATEGORIAS_ENUM[cat] : (cat.nome || cat);
+            return (
+              <span key={index} className="badge-categoria">
+                {nomeCategoria}
+              </span>
+            );
+          })}
         </div>
 
         <p className="text-muted mb-4">{ponto.descricao}</p>
@@ -67,11 +80,16 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
             onClick={() => setShowEventos(!showEventos)}
           >
             Ver Eventos ({ponto.eventos?.length || 0})
-            <ChevronDown size={16} style={{ transform: showEventos ? 'rotate(180deg)' : 'none', transition: '0.3s' }} />
+            <ChevronDown 
+              size={16} 
+              style={{ 
+                transform: showEventos ? 'rotate(180deg)' : 'none', 
+                transition: '0.3s' 
+              }} 
+            />
           </button>
         </div>
 
-        {/* ÁREA DE EVENTOS */}
         {showEventos && (
           <div className="eventos-container mt-4">
             {ponto.eventos?.map(evento => (
@@ -79,22 +97,18 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
                 <div className="evento-content">
                   <div className="evento-title">{evento.nome}</div>
                   <div className="evento-info">
-                    
                     <Calendar size={14} /> 
                     {new Date(evento.dataInicio).toLocaleDateString()} - <Clock size={14} /> {new Date(evento.dataInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-
                   </div>
                   <div className="evento-info">
                     <Calendar size={14} /> 
                     {new Date(evento.dataFim).toLocaleDateString()} - <Clock size={14} />  {new Date(evento.dataFim).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-
                   </div>
                   <div className="evento-info">
                     <MapPin size={14} /> {evento.endereco}
                   </div>
                 </div>
 
-                {/* Botões de Ação do Evento */}
                 <div className="d-flex gap-2">
                   <button
                     className="btn-icon-edit-small"

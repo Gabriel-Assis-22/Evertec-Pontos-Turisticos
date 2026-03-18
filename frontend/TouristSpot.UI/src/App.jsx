@@ -11,14 +11,13 @@ import EventoService from './services/eventoService';
 function App() {
   const [pontos, setPontos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [pontoAtivo, setPontoAtivo] = useState(null); // Estado para saber qual ponto receberá o evento
+  const [pontoAtivo, setPontoAtivo] = useState(null); 
   const [pontoEmEdicao, setPontoEmEdicao] = useState(null);
   const [eventoEmEdicao, setEventoEmEdicao] = useState(null);
 
   useEffect(() => {
     carregarPontos();
 
-    // Limpa os estados ao fechar os modais (via botão Cancelar ou clicando fora)
     const modalPonto = document.getElementById('modalPonto');
     const modalEvento = document.getElementById('modalEvento');
 

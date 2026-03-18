@@ -13,7 +13,7 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
     horaFim: ''
   });
 
-  // Preenche o formulário se estiver em modo de edição
+  
   useEffect(() => {
     if (initialData) {
       setFormData({
@@ -36,7 +36,7 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
     setLoading(true);
 
     try {
-      // Formata os dados para o padrão que o seu .NET espera (combinando data e hora se necessário)
+      
       const payload = {
         ...formData,
         pontoTuristicoId: initialData?.pontoTuristicoId || pontoId,
@@ -52,9 +52,9 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
         alert("Evento criado com sucesso!");
       }
 
-      onSave(); // Recarrega a lista e fecha o modal
+      onSave();
 
-      // Fecha o modal programaticamente
+      
       window.bootstrap.Modal.getInstance(document.getElementById('modalEvento'))?.hide();
     } catch (error) {
       console.error("Erro ao salvar evento:", error);
@@ -90,7 +90,7 @@ export const EventoForm = ({ pontoId, initialData, onSave }) => {
         />
       </div>
 
-      {/* Grid de Datas e Horas (Igual à Imagem 3) */}
+      
       <div className="col-md-6">
         <label className="form-label small fw-bold">Data de Início *</label>
         <input
