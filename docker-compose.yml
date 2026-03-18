@@ -1,0 +1,44 @@
+services:
+  # BANCO DE DADOS
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: tourist-db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Evertec#2026@SQL
+    # O healthcheck garante que o backend só tente conectar quando o SQL estiver PRONTO
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Evertec#2026@SQL' -Q 'SELECT 1' -b -C"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  # BACKEND
+  backend:
+    build:
+      context: ./backend/TouristSpot.API
+      dockerfile: Dockerfile
+    container_name: tourist-backend
+    ports:
+      - "5259:8080" # O navegador acessa 5259, o Docker joga para a 8080 do .NET
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080 # Força o .NET a ouvir na 8080
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TouristSpotDb;User Id=sa;Password=Evertec#2026@SQL;TrustServerCertificate=True
+      # - ConnectionStrings__DefaultConnection=Server=db;Database=TouristSpotDb;User Id=sa;Password=Evertec#2026@SQL;TrustServerCertificate=True
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # FRONTEND
+  frontend:
+    build:
+      context: ./frontend/TouristSpot.UI 
+      dockerfile: Dockerfile
+    container_name: tourist-frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5259
+    depends_on:
+      - backend
