@@ -5,7 +5,7 @@ namespace TouristSpot.API.Models;
 public abstract class Local
 {
     [Key]
-    public virtual int Id {get; protected set; }
+    public virtual int Id {get; set; }
 
     [Required, MaxLength(100)]
     public string Nome {get; set; } = string.Empty; 
