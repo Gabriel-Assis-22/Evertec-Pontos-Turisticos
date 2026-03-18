@@ -1,3 +1,4 @@
+/* Tons de azul e estilo clean */
 .btn-primary-custom {
     background-color: #1a69ff;
     border: none;
@@ -37,13 +38,15 @@
     cursor: pointer;
 }
 
-
+/* Container que expande os eventos */
 .eventos-container {
     border-left: 2px solid #eef2ff;
+    /* A linha azul sutil da imagem */
     margin-left: 10px;
     padding-left: 20px;
 }
 
+/* Card individual do evento dentro do ponto */
 .evento-item-card {
     background-color: #f8fafc;
     border-radius: 12px;
@@ -71,6 +74,7 @@
     gap: 8px;
 }
 
+/* Estilo do botão Confirmar Evento (Imagem 3) */
 .btn-outline-custom {
     color: #1a69ff;
     border: 1.5px solid #1a69ff;
@@ -85,6 +89,7 @@
     color: white;
 }
 
+/* Botão "Confirmar Evento" estilo outline azul */
 .btn-confirmar-evento {
     color: #1a69ff;
     border: 2px solid #1a69ff;
@@ -100,11 +105,13 @@
     color: white;
 }
 
+/* Espaçamento entre inputs do modal */
 .modal-body label {
     color: #1e293b;
     margin-bottom: 6px;
 }
 
+/* Estilo para o botão de deletar ponto (Topo Direito) */
 .btn-icon-delete {
     background: transparent;
     border: none;
@@ -123,6 +130,7 @@
     transform: scale(1.1);
 }
 
+/* Estilo para o botão de editar ponto (Topo Direito) */
 .btn-icon-edit {
     background: transparent;
     border: none;
@@ -141,6 +149,7 @@
     transform: scale(1.1);
 }
 
+/* Estilo para o botão de deletar evento (Interno) */
 .btn-icon-delete-small {
     background: #fff;
     border: 1px solid #ffebeb;
@@ -156,6 +165,7 @@
     color: white;
 }
 
+/* Estilo para o botão de editar evento (Interno) */
 .btn-icon-edit-small {
     background: #fff;
     border: 1px solid #dbeafe;
@@ -171,6 +181,7 @@
     color: white;
 }
 
+/* Estilo para o botão de adicionar (Antigo link azul) */
 .btn-add-action {
     background: transparent;
     border: none;

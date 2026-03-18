@@ -1,89 +1,151 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import { Header } from './components/Header';
 import { PontoCard } from './components/PontoCard';
+import './App.css'
+import { Modal } from './components/modals/Modal';
 import { PontoForm } from './components/modals/PontoForm';
-import { EventoForm } from './components/modals/EventoForm';
-import './App.css';
-
-// Dados de exemplo para você ver o layout funcionando sem o Banco de Dados
-const pontosFake = [
-  {
-    id: 1,
-    nome: "Cristo Redentor",
-    descricao: "Uma das sete maravilhas do mundo moderno, localizado no topo do morro do Corcovado.",
-    endereco: "Parque Nacional da Tijuca",
-    cidade: "Rio de Janeiro",
-    estado: "RJ",
-    dataInicio: "08:00",
-    dataFim: "19:00",
-    categorias: ["Histórico", "Natureza"],
-    eventos: [
-      { id: 101, nome: "Pôr do Sol Musical", dataInicio: "20/05/2026 17:00", dataFim: "20/05/2026 19:00", endereco: "Mirante do Cristo" }
-    ]
-  },
-  {
-    id: 2,
-    nome: "Museu do Amanhã",
-    descricao: "Um museu de ciências aplicadas que explora as oportunidades e os desafios que a humanidade terá de enfrentar.",
-    endereco: "Praça Mauá, 1",
-    cidade: "Rio de Janeiro",
-    estado: "RJ",
-    dataInicio: "10:00",
-    dataFim: "18:00",
-    categorias: ["Museu", "Gastronomia"],
-    eventos: []
-  }
-];
+import { EventoForm } from './components/modals/EventoForm'; // Adicione este
+import PontoTuristicoService from './services/pontoTuristicoService';
+import EventoService from './services/eventoService';
 
 function App() {
+  const [pontos, setPontos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [pontoAtivo, setPontoAtivo] = useState(null); // Estado para saber qual ponto receberá o evento
+  const [pontoEmEdicao, setPontoEmEdicao] = useState(null);
+  const [eventoEmEdicao, setEventoEmEdicao] = useState(null);
+
+  useEffect(() => {
+    carregarPontos();
+
+    // Limpa os estados ao fechar os modais (via botão Cancelar ou clicando fora)
+    const modalPonto = document.getElementById('modalPonto');
+    const modalEvento = document.getElementById('modalEvento');
+
+    const handlePontoHidden = () => setPontoEmEdicao(null);
+    const handleEventoHidden = () => {
+      setEventoEmEdicao(null);
+      setPontoAtivo(null);
+    };
+
+    if (modalPonto) modalPonto.addEventListener('hidden.bs.modal', handlePontoHidden);
+    if (modalEvento) modalEvento.addEventListener('hidden.bs.modal', handleEventoHidden);
+
+    return () => {
+      if (modalPonto) modalPonto.removeEventListener('hidden.bs.modal', handlePontoHidden);
+      if (modalEvento) modalEvento.removeEventListener('hidden.bs.modal', handleEventoHidden);
+    };
+  }, []);
+
+  const carregarPontos = async () => {
+    try {
+      setLoading(true);
+      const data = await PontoTuristicoService.getAll();
+      setPontos(data);
+    } catch (err) {
+      console.error("Erro ao conectar com API .NET", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearch = async (termo) => {
+    try {
+      if (termo.length > 2) {
+        const resultados = await PontoTuristicoService.search(termo);
+        setPontos(resultados);
+      } else if (termo.length === 0) {
+        carregarPontos();
+      }
+    } catch (err) {
+      console.error("Erro na busca", err);
+    }
+  };
+
+  const handleDeletePonto = async (id) => {
+    if (window.confirm("Deseja realmente excluir este ponto turístico?")) {
+      try {
+        await PontoTuristicoService.delete(id);
+        carregarPontos(); // Atualiza a lista
+      } catch (err) {
+        console.error("Erro ao excluir ponto turístico", err);
+      }
+    }
+  };
+
+  const handleDeleteEvento = async (id) => {
+    if (window.confirm("Deseja excluir este evento?")) {
+      try {
+        await EventoService.delete(id);
+        carregarPontos(); // Atualiza para sumir o evento do card
+      } catch (err) {
+        console.error("Erro ao excluir evento", err);
+      }
+    }
+  };
+
   return (
     <div className="min-vh-100 bg-light">
-      {/* Header Visual */}
-      <Header />
+      {/* 1. Passamos o handleSearch para o Header */}
+      <Header
+        onSearch={handleSearch}
+        onNovoPontoClick={() => setPontoEmEdicao(null)}
+      />
 
       <main className="container mt-5">
         <div className="row justify-content-center">
           <div className="col-lg-10">
-            {/* Mapeamento dos dados fake para os Cards */}
-            {pontosFake.map(ponto => (
-              <PontoCard key={ponto.id} ponto={ponto} />
-            ))}
+            {loading ? (
+              <div className="text-center mt-5">
+                <div className="spinner-border text-primary"></div>
+              </div>
+            ) : pontos.length === 0 ? (
+              <div className="text-center mt-5 text-muted">
+                <p>Nenhum ponto turístico encontrado.</p>
+              </div>
+            ) : (
+              pontos.map(ponto => (
+                <PontoCard
+                  key={ponto.id}
+                  ponto={ponto}
+                  onAddEvento={(p) => {
+                    setPontoAtivo(p);
+                    setEventoEmEdicao(null);
+                  }}
+                  onDeletePonto={handleDeletePonto}
+                  onDeleteEvento={handleDeleteEvento}
+                  onEditPonto={(p) => setPontoEmEdicao(p)}
+                  onEditEvento={(e) => setEventoEmEdicao(e)}
+                />
+              ))
+            )}
           </div>
         </div>
       </main>
 
-      {/* Estrutura dos Modais (Bootstrap puro) */}
-      
-      {/* Modal Ponto Turístico */}
-      <div className="modal fade" id="modalPonto" tabIndex="-1" aria-hidden="true">
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content p-4">
-            <div className="modal-header border-0">
-              <h5 className="modal-title fw-bold">Cadastrar Ponto Turístico</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <PontoForm />
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* MODAL PONTO (Criar/Editar) */}
+      <Modal id="modalPonto" title={pontoEmEdicao?.id ? "Editar Ponto Turístico" : "Cadastrar Ponto Turístico"}>
+        <PontoForm
+          initialData={pontoEmEdicao}
+          onSave={() => {
+            carregarPontos();
+            setPontoEmEdicao(null);
+          }}
+        />
+      </Modal>
 
-      {/* Modal Evento */}
-      <div className="modal fade" id="modalEvento" tabIndex="-1" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content p-4">
-            <div className="modal-header border-0">
-              <h5 className="modal-title fw-bold">Novo Evento</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <EventoForm />
-            </div>
-          </div>
-        </div>
-      </div>
-
+      {/* MODAL EVENTO (Criar/Editar) */}
+      <Modal id="modalEvento" title={eventoEmEdicao?.id ? "Editar Evento" : `Novo Evento em ${pontoAtivo?.nome}`}>
+        <EventoForm
+          pontoId={pontoAtivo?.id}
+          initialData={eventoEmEdicao}
+          onSave={() => {
+            carregarPontos();
+            setPontoAtivo(null);
+            setEventoEmEdicao(null);
+          }}
+        />
+      </Modal>
     </div>
   );
 }
