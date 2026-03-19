@@ -64,7 +64,7 @@ Esta é a forma mais simples de subir o ambiente completo (Banco, API e UI) com 
     ```
 3.  **Para encerrar e remover os containers:**
     ```bash
-    docker-compose down
+    docker compose down
     ```
 
 ---
