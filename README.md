@@ -119,40 +119,39 @@ O projeto está totalmente **"Live"** e pode ser acessado no link abaixo:
 ## 🏗️ Diagrama
 
 ```mermaid
-   classDiagram
+  classDiagram
     class Local {
-        <<Abstract>>
+        <<abstract>>
         +int Id
         +string Nome
         +string Descricao
         +string Endereco
         +DateTime DataInicio
         +DateTime DataFim
+        +GetLocalizacaoCompleta()* string
+        +EstaAbertoOuAtivo()* bool
     }
 
     class PontoTuristico {
         +string Cep
         +string Cidade
         +string Estado
-        +List~TipoCategoria~ Categorias
+        +ICollection~Evento~ EventosInternos
+        +ICollection~TipoCategoria~ Categorias
+        +GetLocalizacaoCompleta() string
+        +EstaAbertoOuAtivo() bool
     }
 
     class Evento {
         +int PontoTuristicoId
-    }
-
-    class TipoCategoria {
-        <<Enumeration>>
-        Natureza
-        Museu
-        Historico
-        Gastronomia
+        +PontoTuristico PontoTuristicoPai
+        +GetLocalizacaoCompleta() string
+        +EstaAbertoOuAtivo() bool
     }
 
     Local <|-- PontoTuristico : Herança
     Local <|-- Evento : Herança
-    PontoTuristico "1" --> "*" Evento : EventosInternos
-    PontoTuristico ..> TipoCategoria : Usa
+    PontoTuristico "1" --> "0..*" Evento : Possui (EventosInternos)
     
 ```
 
