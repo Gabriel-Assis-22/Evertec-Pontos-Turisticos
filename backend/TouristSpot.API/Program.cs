@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReact",
-        policy => policy.WithOrigins("http://localhost:5173", "https://seu-front-vercel.vercel.app") 
+        policy => policy.AllowAnyOrigin() 
                         .AllowAnyMethod()
                         .AllowAnyHeader());
 });
