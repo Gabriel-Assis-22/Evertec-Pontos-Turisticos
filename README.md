@@ -59,7 +59,7 @@ Caso deseje rodar os serviços separadamente para depuração ou desenvolvimento
 #### 1. Banco de Dados (SQL Server via Docker)
 Se não possuir um SQL Server local, crie o container com as credenciais do projeto e start o conteiner:
 ```bash
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Evertec#2026@SQL" -p 1433:1433 --name sql_server_turismo -d [mcr.microsoft.com/mssql/server:2022-latest](https://mcr.microsoft.com/mssql/server:2022-latest)
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Evertec#2026@SQL" -p 1433:1433 --name sql_server_turismo -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
 #### 2. Backend (API)
