@@ -4,7 +4,7 @@ Este projeto é uma aplicação **Full Stack** para gerenciamento de pontos tur�
 
 ---
 
-## 🏗️ Arquitetura e Diagrama
+## 🏗️ Arquitetura Diagrama
 A aplicação segue o modelo **cliente-servidor**, onde o Frontend (React) consome uma API REST (.NET).
 
 
@@ -18,13 +18,30 @@ A aplicação segue o modelo **cliente-servidor**, onde o Frontend (React) conso
 
 ## 🛠️ Requisitos Mínimos
 
-Para rodar este projeto localmente, as dependências variam conforme o método escolhido:
+Para rodar este projeto localmente, você precisará obrigatoriamente do **Git** instalado. As demais dependências variam conforme o método escolhido:
 
-**Geral:** [Git](https://git-scm.com/) instalado.
-* **Via Docker:** Apenas o **Docker Engine** instalado e em execução.
-* **Via Execução Manual:** * **.NET SDK 10** instalado.
-    * **Node.js** (v18 ou superior) instalado.
-    * **SQL Server** (pode ser via Docker ou local).
+### 📦 Geral (Obrigatório)
+* **[Git](https://git-scm.com/):** Para clonagem e controle de versão do repositório.
+
+---
+
+### 🐳 Opção 1: Via Docker (Recomendado)
+Ideal para rodar o projeto rapidamente sem instalar compiladores na sua máquina.
+* **[Docker Engine](https://docs.docker.com/engine/install/):** Instalado e em execução (incluindo o Docker Compose).
+
+---
+
+### 💻 Opção 2: Via Execução Manual (Desenvolvimento)
+Necessário caso você pretenda alterar o código e depurar as aplicações localmente.
+
+* **Backend:**
+    * **[.NET SDK 10](https://dotnet.microsoft.com/download/dotnet/10.0):** Para compilar e rodar a API C#.
+    * **SQL Server:** Pode ser uma instância local ou via container Docker isolado.
+
+* **Frontend:**
+    * **[NVM (Node Version Manager)](https://github.com/nvm-sh/nvm):** Recomendado para gerenciar as versões do Node.js.
+    * **Node.js (v18 ou superior):** Ambiente de execução Javascript.
+    * **NPM (v9 ou superior):** Gerenciador de pacotes (instalado automaticamente com o Node.js).
 
 ---
 
