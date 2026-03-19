@@ -56,14 +56,20 @@ Esta é a forma mais simples de subir o ambiente completo (Banco, API e UI) com 
 
 Caso deseje rodar os serviços separadamente para depuração ou desenvolvimento, siga os passos abaixo:
 
-#### 1. Backend (API)
+#### 1. Banco de Dados (SQL Server via Docker)
+Se não possuir um SQL Server local, crie o container com as credenciais do projeto e start o conteiner:
+```bash
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Evertec#2026@SQL" -p 1433:1433 --name sql_server_turismo -d [mcr.microsoft.com/mssql/server:2022-latest](https://mcr.microsoft.com/mssql/server:2022-latest)
+```
+
+#### 2. Backend (API)
 1.  Abra o terminal na pasta: `backend/TouristSpot.API`.
 2.  Execute a aplicação:
     ```bash
     dotnet run
     ```
 
-#### 2. Frontend (UI)
+#### 3. Frontend (UI)
 1.  Abra o terminal na pasta: `frontend/TouristSpot.UI`.
 2.  Instale as dependências e inicie o servidor de desenvolvimento:
     ```bash
