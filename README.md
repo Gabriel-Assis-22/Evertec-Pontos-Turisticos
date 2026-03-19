@@ -1,4 +1,80 @@
-# Evertec-Pontos-Turisticos
+# 🌍 Evertec - Pontos Turísticos
+
+Este projeto é uma aplicação **Full Stack** para gerenciamento de pontos turísticos e eventos associados, desenvolvida como parte de um desafio técnico e estudo. A aplicação permite listar, visualizar e cadastrar locais turísticos com integração total entre Frontend e Backend.
+
+---
+
+## 🏗️ Arquitetura e Diagrama
+A aplicação segue o modelo **cliente-servidor**, onde o Frontend (React) consome uma API REST (.NET).
+
+
+
+* **Frontend:** React + Vite (Hospedado na **Vercel**).
+* **Backend:** .NET 10 Web API (Hospedado no **Somee**).
+* **Banco de Dados:** SQL Server (Hospedado no **Somee**).
+* **Containerização:** Suporte a Docker para desenvolvimento local simplificado.
+
+---
+
+## 🛠️ Requisitos Mínimos
+
+Para rodar este projeto localmente, as dependências variam conforme o método escolhido:
+
+* **Via Docker:** Apenas o **Docker Engine** instalado e em execução.
+* **Via Execução Manual:** * **.NET SDK 10** instalado.
+    * **Node.js** (v18 ou superior) instalado.
+    * **SQL Server** (pode ser via Docker ou local).
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+### Opção 1: Via Docker Compose (Recomendado)
+Esta é a forma mais simples de subir o ambiente completo (Banco, API e UI) com um único comando.
+
+1.  Abra o terminal na pasta raiz do projeto: `Evertec-Pontos-Turisticos`.
+2.  **Para iniciar todos os serviços:**
+    ```bash
+    docker-compose up -d
+    ```
+3.  **Para encerrar e remover os containers:**
+    ```bash
+    docker-compose down
+    ```
+
+---
+
+### ⚙️ Execução Manual (Desenvolvimento)
+
+Caso deseje rodar os serviços separadamente para depuração ou desenvolvimento, siga os passos abaixo:
+
+#### 1. Backend (API)
+1.  Abra o terminal na pasta: `backend/TouristSpot.API`.
+2.  Execute a aplicação:
+    ```bash
+    dotnet run
+    ```
+
+#### 2. Frontend (UI)
+1.  Abra o terminal na pasta: `frontend/TouristSpot.UI`.
+2.  Instale as dependências e inicie o servidor de desenvolvimento:
+    ```bash
+    npm install
+    npm run dev
+    ```
+
+---
+
+### 🔗 Acesso Local
+
+Independente do método escolhido (Docker ou Manual), após o carregamento dos serviços, você poderá acessar a aplicação em seu navegador através do endereço:
+
+* **Aplicação (Frontend):** [http://localhost:5173/](http://localhost:5173/)
+
+---
+
+## 🏗️ Diagrama
+
 ```mermaid
    classDiagram
     class Local {
