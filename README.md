@@ -73,6 +73,18 @@ Independente do método escolhido (Docker ou Manual), após o carregamento dos s
 
 ---
 
+## 🌐 Hospedagem e Deploy
+O projeto está totalmente **"Live"** e pode ser acessado no link abaixo:
+
+* **💻 Frontend (Produção):** [Clique aqui para acessar](https://evertec-pontos-turisticos-git-main-gabriel-assis-22s-projects.vercel.app/)
+
+### 🛡️ Detalhes do Deploy
+* **CI/CD:** Configurado via integração direta **GitHub + Vercel**.
+* **Segurança:** Comunicação via **HTTPS** com política de **CORS** habilitada especificamente para o domínio da Vercel.
+* **Banco de Dados:** Migrations automáticas do Entity Framework executadas no *startup* da aplicação no servidor Somee.
+
+---
+
 ## 🏗️ Diagrama
 
 ```mermaid
