@@ -14,7 +14,7 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
   return (
     <div className="card ponto-card mb-4 p-4">
       <div className="card-body p-0">
-        
+
         <div className="d-flex justify-content-between align-items-start mb-3">
           <h3 className="fw-bold m-0">{ponto.nome}</h3>
           <div className="d-flex gap-2">
@@ -79,12 +79,12 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
             onClick={() => setShowEventos(!showEventos)}
           >
             Ver Eventos ({ponto.eventos?.length || 0})
-            <ChevronDown 
-              size={16} 
-              style={{ 
-                transform: showEventos ? 'rotate(180deg)' : 'none', 
-                transition: '0.3s' 
-              }} 
+            <ChevronDown
+              size={16}
+              style={{
+                transform: showEventos ? 'rotate(180deg)' : 'none',
+                transition: '0.3s'
+              }}
             />
           </button>
         </div>
@@ -95,7 +95,7 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
               <div key={evento.id} className="evento-item-card d-flex justify-content-between align-items-center">
                 <div className="evento-content w-100">
                   <div className="evento-title">{evento.nome}</div>
-                  
+
                   {/* NOVA LINHA: Descrição do Evento */}
                   {evento.descricao && (
                     <div className="evento-description mb-2 small text-muted">
@@ -105,11 +105,11 @@ export const PontoCard = ({ ponto, onAddEvento, onDeletePonto, onDeleteEvento, o
                   )}
 
                   <div className="evento-info">
-                    <Calendar size={14} /> 
+                    <Calendar size={14} />
                     {new Date(evento.dataInicio).toLocaleDateString()} - <Clock size={14} /> {new Date(evento.dataInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </div>
                   <div className="evento-info">
-                    <Calendar size={14} /> 
+                    <Calendar size={14} />
                     {new Date(evento.dataFim).toLocaleDateString()} - <Clock size={14} />  {new Date(evento.dataFim).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </div>
                   <div className="evento-info">

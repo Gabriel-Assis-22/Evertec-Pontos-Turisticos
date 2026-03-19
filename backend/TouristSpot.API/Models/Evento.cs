@@ -11,9 +11,9 @@ public class Evento: Local {
     
     [ForeignKey("PontoTuristicoId")]
     public virtual PontoTuristico PontoTuristicoPai {get; set; } = null!; 
-
+    //Este trecho não está sendo utilizado
     public override string GetLocalizacaoCompleta() => $"Loca: {PontoTuristicoPai.Nome} - Referêcia interna: {Endereco}";
-
+    //Este trecho não está sendo utilizado
     public override bool EstaAbertoOuAtivo(){
         return DateTime.UtcNow >= DataInicio && DateTime.UtcNow <= DataFim; 
     }
