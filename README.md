@@ -84,7 +84,7 @@ Independente do método escolhido (Docker ou Manual), após o carregamento dos s
 ## 🌐 Hospedagem e Deploy
 O projeto está totalmente **"Live"** e pode ser acessado no link abaixo:
 
-* **💻 Frontend (Produção):** [[Clique aqui para acessar](https://evertec-pontos-turisticos.vercel.app)
+* **💻 Frontend (Produção):** [[Clique aqui para acessar](https://evertec-pontos-turisticos.vercel.app)]
 
 ### 🛡️ Detalhes do Deploy
 * **CI/CD:** Configurado via integração direta **GitHub + Vercel**.
