@@ -20,6 +20,7 @@ A aplicação segue o modelo **cliente-servidor**, onde o Frontend (React) conso
 
 Para rodar este projeto localmente, as dependências variam conforme o método escolhido:
 
+**Geral:** [Git](https://git-scm.com/) instalado.
 * **Via Docker:** Apenas o **Docker Engine** instalado e em execução.
 * **Via Execução Manual:** * **.NET SDK 10** instalado.
     * **Node.js** (v18 ou superior) instalado.
@@ -29,13 +30,20 @@ Para rodar este projeto localmente, as dependências variam conforme o método e
 
 ## 🚀 Como Rodar o Projeto
 
+### 0. Clonar o Projeto
+Antes de escolher um método de execução, clone o repositório para sua máquina local:
+Via SSh
+```bash
+git clone git@github.com:Gabriel-Assis-22/Evertec-Pontos-Turisticos.git
+```
+
 ### Opção 1: Via Docker Compose (Recomendado)
 Esta é a forma mais simples de subir o ambiente completo (Banco, API e UI) com um único comando.
 
 1.  Abra o terminal na pasta raiz do projeto: `Evertec-Pontos-Turisticos`.
 2.  **Para iniciar todos os serviços:**
     ```bash
-    docker-compose up -d
+    docker compose up -d
     ```
 3.  **Para encerrar e remover os containers:**
     ```bash
